@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Patrick+Hand&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* colors */
+:root {
+  --primary900: #000e0d;
+  --primary800: #001c1b;
+  --primary700: #002a28;
+  --primary600: #003836;
+  --primary500: #004643;
+  --primary400: #336b69;
+  --primary300: #66908e;
+  --primary200: #99b5b4;
+  --primary100: #ccdad9;
+  --grey900: #0d0d0d;
+  --background: var(--primary100);
+  --alert4041: #ee8181;
+  --alert4049: #720e0e;
+  --alert2001: #99ff99;
+  --alert2009: #0e550e;
+  --headings: 'Lato', sans-serif;
+  --text: 'Patrick Hand', cursive;
+}
+body {
+  color: var(--grey900);
+  background: linear-gradient(rgba(0, 0, 0, 0.2), var(--background));
+  font-family: var(--text);
+  min-height: 100vh;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--headings);
+  text-transform: capitalize;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+/* app.js */
+.section {
+  width: 90vw;
+  margin: 5rem auto;
+  text-align: center;
+  max-width: 700px;
+}
+.section-center {
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: -8px 10px 19px -5px rgba(0, 0, 0, 0.68);
+  -webkit-box-shadow: -8px 10px 19px -5px rgba(0, 0, 0, 0.68);
+  -moz-box-shadow: -8px 10px 19px -5px rgba(0, 0, 0, 0.68);
+}
+.form-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 10px 0;
+  text-transform: capitalize;
+  font-family: var(--headings);
+  font-weight: 900;
+}
+.input input {
+  height: 1.5rem;
+  border: 0px solid;
+  background: var(--background);
+  padding: 5px;
+  border-radius: 15px;
+  appearance: none;
+}
+input:focus {
+  outline: none;
+}
+.submit-btn {
+  text-transform: uppercase;
+  padding: 3px;
+  background: var(--primary400);
+  border: none;
+  color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  letter-spacing: 3px;
+  border-radius: 5px;
+}
+.submit-btn:hover {
+  cursor: pointer;
+  background: var(--primary200);
+  color: var(--primary600);
+}
+.btn:hover {
+  background: var(--primary200);
+  color: var(--primary600);
+}
+.icon {
+  font-size: 20px;
+  color: var(--primary700);
+  margin-left: 1rem;
+}
+.list-section {
+  max-height: 70vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 1em;
+}
+.item {
+  border: 2px solid var(--primary200);
+  margin: 1rem auto;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: var(--text);
+  align-items: flex-start;
+  letter-spacing: 0.25em;
+}
+.item h4 {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.icon-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0 10px;
+}
+.icon-container button {
+  border: none;
+  background: transparent;
+}
+button:hover {
+  cursor: pointer;
+}
+.btn {
+  padding: 3px;
+  background: transparent;
+  border: none;
+  text-transform: capitalize;
+
+  background: var(--primary400);
+  color: rgb(255, 255, 255);
+
+  letter-spacing: 3px;
+  border-radius: 5px;
+}
+span {
+  padding: 0.2em;
+  background: var(--primary400);
+  color: rgb(255, 255, 255);
+}
+.clear-btn {
+  margin-bottom: 1rem;
+}
+.edit {
+  color: var(--primary500);
+  transition: all 0.4s ease-in-out;
+}
+.delete {
+  color: var(--alert4041);
+  transition: all 0.5s ease-in-out;
+}
+.edit:hover {
+  transform: scale(130%);
+}
+.delete:hover {
+  transform: scale(130%);
+}
+.alert {
+  width: 60%;
+  margin: 20px auto;
+  padding: 3px;
+  border-radius: 5px;
+  letter-spacing: 3.5px;
+  word-spacing: 0.5em;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+}
+.alert-success {
+  background: var(--alert2001);
+  color: var(--alert2009);
+}
+.alert-danger {
+  background: var(--alert4041);
+  color: var(--alert4049);
+}
+
+@media screen and (max-width: 500px) {
+  .form-input {
+    flex-direction: column;
+  }
+  .form-input input {
+    width: 100%;
+  }
+}
