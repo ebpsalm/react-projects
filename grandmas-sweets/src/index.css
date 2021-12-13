@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+
+:root {
+  --mainWhite: #ffffff;
+  --grey100: #fafafa;
+  --grey300: #ebebeb;
+  --grey500: #dbdbdb;
+  --baseGrey: #cccccc;
+  --grey600: #8f8f8f;
+  --grey800: #525252;
+  --grey900: #141414;
+  --pink100: #fff0f8;
+  --pink300: #ffc3e1;
+  --pink500: #ff96cb;
+  --pinkBase: #ff69b4;
+  --pink600: #b34a7e;
+  --pink800: #662a48;
+  --pink900: #331524;
+  --boxShadow: -9px 10px 22px -1px rgba(0, 0, 0, 0.78);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Courgette', cursive;
+}
