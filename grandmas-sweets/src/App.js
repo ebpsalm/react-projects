@@ -17,6 +17,8 @@ function App() {
       <Details />
       <Orders />
       <Footer />
+      <Cart />
+      
     </>
   );
 }

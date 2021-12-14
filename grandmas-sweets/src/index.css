@@ -67,6 +67,11 @@ a {
   background-size: cover;
   background-position: center;
 }
+.header > .div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .navbar {
   display: grid;
   grid-template-columns: auto 2fr 1fr 1fr;
@@ -86,6 +91,7 @@ a {
 }
 .links a {
   color: var(--pinkBase);
+  font-size: 1.2rem;
 }
 .tel {
   display: inline-block;
@@ -282,6 +288,109 @@ a {
 .orders-section {
   padding: 1.5rem 5px;
 }
+/* -----footer------- */
+.footer-socials {
+  background: var(--grey800);
+  color: var(--mainWhite);
+  text-align: center;
+}
+.footer-socials .link {
+  color: var(--mainWhite);
+  font-size: 1.5rem;
+  height: 5rem;
+}
+.footer-socials ul {
+  display: flex;
+  justify-content: space-around;
+}
+.footer-contacts {
+  background: var(--grey300);
+  color: var(--grey900);
+  padding: 1.5rem 2rem;
+}
+.footer-contacts h3 {
+  text-align: center;
+}
+.footer-contacts div {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cart {
+  width: 90%;
+  max-width: 400px;
+  position: fixed;
+  top: 50px;
+  right: 0;
+  background: rgba(255, 195, 225, 0.95);
+  padding-bottom: 1rem;
+  transform: translateX(400px);
+  transition: var(--mainTransition2);
+}
+.show-cart {
+  transform: translateX(0);
+}
+.cart-items article {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+.cart-items {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 70vh;
+}
+.cart-img {
+  max-width: 5rem;
+}
+.cart-img img {
+  border-radius: 60%;
+  width: 100%;
+}
+.cart > p {
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  padding-top: 10px;
+}
+.cart-btns {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+.cart-btns button {
+  text-transform: capitalize;
+  border: 1px solid var(--grey800);
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1rem;
+  font-family: 'Courgette', cursive;
+}
+.alert {
+  position: fixed;
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  width: 15rem;
+  margin-left: auto;
+  top: 53px;
+  z-index: 2;
+  padding: 5px;
+  visibility: hidden;
+}
+.alert.success {
+  background: #00b300;
+  color: #004d00;
+  visibility: visible;
+}
+.alert.danger {
+  background: #e60000;
+  color: #4d0000;
+  visibility: visible;
+}
 @media screen and (max-width: 700px) {
   /* ---header---- */
   .links {
@@ -322,5 +431,13 @@ a {
   }
   .orders-section > div {
     display: flex;
+  }
+  .footer {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+  }
+  .footer div {
+    flex-grow: 1;
   }
 }

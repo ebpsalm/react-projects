@@ -7,6 +7,9 @@ const Header = () => {
   return (
     <header className='header' id='home'>
       <Navbar />
+      <div className='div'>
+        <p className='alert'>hallo world</p>
+      </div>
       <div className='header-center'>
         <h1>
           welcome to <span className='special'>grandma's</span>
