@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 
 :root {
+  scroll-behavior: smooth;
   --mainWhite: #ffffff;
   --grey100: #fafafa;
   --grey300: #ebebeb;
@@ -16,11 +17,10 @@
   --pink600: #b34a7e;
   --pink800: #662a48;
   --pink900: #331524;
-  --mainTransition: all 0.3s ease-in;
-  --mainTransition2: all 0.1s ease-in;
+  --mainTransition: all 0.5s ease-in-out;
+  --mainTransition2: all 0.2s ease-in-out;
   --boxShadow: -9px 10px 22px -1px rgba(0, 0, 0, 0.78);
   --boxShadow2: -9px 10px 22px -1px rgba(0, 0, 0, 0.3);
-  scroll-behavior: smooth;
 }
 
 * {
@@ -326,7 +326,7 @@ a {
   background: rgba(255, 195, 225, 0.95);
   padding-bottom: 1rem;
   transform: translateX(400px);
-  transition: var(--mainTransition2);
+  transition: var(--mainTransition);
 }
 .show-cart {
   transform: translateX(0);

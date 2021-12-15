@@ -18,7 +18,7 @@ const Store = () => {
       </form>
       <div className='store-container'>
         {store.map((item, index) => {
-          return <Sweet key={index} {...item} />;
+          return <Sweet key={item.id} {...item} />;
         })}
       </div>
     </section>

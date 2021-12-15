@@ -3,11 +3,11 @@ import useGlobalContext from './context';
 import { FaTrash } from 'react-icons/fa';
 
 const Cart = () => {
-  const { store } = useGlobalContext();
+  const { cart, isCartOpen } = useGlobalContext();
   return (
-    <section className='cart'>
+    <section className={`cart ${isCartOpen && 'show-cart'}`}>
       <div className='cart-items'>
-        {store.map((item, index) => {
+        {cart.map((item, index) => {
           return (
             <article key={index}>
               <div className='cart-img'>
@@ -25,10 +25,14 @@ const Cart = () => {
       <p>
         total <span className='cart-total'>$0</span>
       </p>
-      <div className='cart-btns'>
-        <button className='btn'>clear cart</button>
-        <button className='btn'>checkout</button>
-      </div>
+      {cart.length > 0 ? (
+        <div className='cart-btns'>
+          <button className='btn'>clear cart</button>
+          <button className='btn'>checkout</button>
+        </div>
+      ) : (
+        <p>cart is empty</p>
+      )}
     </section>
   );
 };
