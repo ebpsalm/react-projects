@@ -7,7 +7,7 @@ import { BsFillTelephoneFill } from 'react-icons/bs';
 import useGlobalContext from './context';
 
 const Navbar = () => {
-  const { displayCart, handleLinks, navBar } = useGlobalContext();
+  const { displayCart, handleLinks, navBar, total, cart } = useGlobalContext();
   return (
     <nav className='navbar' ref={navBar}>
       <div className='nav-query'>
@@ -19,7 +19,7 @@ const Navbar = () => {
         <ul className='links'>
           {links.map((link, index) => {
             return (
-              <li key={link.id} key={index}>
+              <li key={link.id}>
                 <a href={link.url} data-id={link.url} onClick={handleLinks}>
                   {link.text}
                 </a>
@@ -34,8 +34,8 @@ const Navbar = () => {
       <div className='cart-toggle' onClick={displayCart}>
         <FaShoppingCart />
         <p>
-          <span className='cart-count'>0</span> items-
-          <span className='cart-total'>$0</span>
+          <span className='cart-count'>{cart.length}</span> items-
+          <span className='cart-total'>$ {total}</span>
         </p>
       </div>
     </nav>

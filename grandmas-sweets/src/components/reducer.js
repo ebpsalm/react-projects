@@ -1,8 +1,11 @@
 const reducer = (state, action) => {
-  console.log(state);
   if (action.type === 'STORE') {
     return { ...state, store: action.payload };
   }
+  if (action.type === 'STATIC') {
+    return { ...state, staticStore: action.payload };
+  }
+
   if (action.type === 'SHOW_CART') {
     if (!state.isCartOpen) {
       return { ...state, isCartOpen: true };
@@ -26,6 +29,44 @@ const reducer = (state, action) => {
   }
   if (action.type === 'CLEAR_ALERT') {
     return { ...state, alert: { msg: '', state: false, type: '' } };
+  }
+  if (action.type === 'CLEAR_CART') {
+    return {
+      ...state,
+      cart: [],
+      alert: { msg: 'cart cleared', state: true, type: 'danger' },
+      isCartOpen: false,
+    };
+  }
+  if (action.type === 'REMOVE_ITEM') {
+    const newCart = state.cart.filter((item) => item.id !== action.payload);
+    const newStore = state.store.map((item) => {
+      if (item.id === action.payload) {
+        return { ...item, isInCart: false };
+      }
+      return item;
+    });
+    if (newCart.length < 1) {
+      return {
+        ...state,
+        store: newStore,
+        cart: newCart,
+        alert: { msg: 'item removed', state: true, type: 'danger' },
+        isCartOpen: false,
+      };
+    }
+    return {
+      ...state,
+      store: newStore,
+      cart: newCart,
+      alert: { msg: 'item removed', state: true, type: 'danger' },
+    };
+  }
+  if (action.type === 'CALCULATE') {
+    return { ...state, total: action.payload };
+  }
+  if (action.type === 'QUERY') {
+    return { ...state, search: action.payload };
   }
   return state;
 };

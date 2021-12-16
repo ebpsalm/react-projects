@@ -166,6 +166,12 @@ a {
   grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
   justify-content: center;
   grid-gap: 1.5rem 1.5rem;
+  text-transform: capitalize;
+}
+.store-container > p {
+  font-size: 1.1rem;
+  margin: 1.5rem 0;
+  text-align: center;
 }
 .store-img {
   width: 100%;
@@ -382,12 +388,12 @@ a {
   visibility: hidden;
 }
 .alert.success {
-  background: #00b300;
+  background: rgba(0, 179, 0, 0.89);
   color: #004d00;
   visibility: visible;
 }
 .alert.danger {
-  background: #e60000;
+  background: rgba(230, 0, 0, 0.89);
   color: #4d0000;
   visibility: visible;
 }

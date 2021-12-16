@@ -3,13 +3,14 @@ import useGlobalContext from './context';
 import { FaTrash } from 'react-icons/fa';
 
 const Cart = () => {
-  const { cart, isCartOpen } = useGlobalContext();
+  const { cart, total, isCartOpen, removeItem, clearCart, displayCart } =
+    useGlobalContext();
   return (
     <section className={`cart ${isCartOpen && 'show-cart'}`}>
       <div className='cart-items'>
-        {cart.map((item, index) => {
+        {cart.map((item) => {
           return (
-            <article key={index}>
+            <article key={item.id}>
               <div className='cart-img'>
                 <img src={item.url} alt={item.name} />
               </div>
@@ -17,18 +18,22 @@ const Cart = () => {
                 <h4>{item.name}</h4>
                 <p>{item.price}</p>
               </div>
-              <FaTrash className='btn' />
+              <FaTrash className='btn' onClick={() => removeItem(item.id)} />
             </article>
           );
         })}
       </div>
       <p>
-        total <span className='cart-total'>$0</span>
+        total <span className='cart-total'>$ {total}</span>
       </p>
       {cart.length > 0 ? (
         <div className='cart-btns'>
-          <button className='btn'>clear cart</button>
-          <button className='btn'>checkout</button>
+          <button className='btn' onClick={clearCart}>
+            clear cart
+          </button>
+          <button className='btn' onClick={displayCart}>
+            checkout
+          </button>
         </div>
       ) : (
         <p>cart is empty</p>

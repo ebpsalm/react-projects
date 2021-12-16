@@ -2,7 +2,7 @@ import react from 'react';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 import reducer from './reducer';
-import { useReducer, useEffect, useContext, useRef } from 'react';
+import { useReducer, useEffect, useContext, useRef, useCallback } from 'react';
 import links from '../supports/links';
 
 const AppContext = react.createContext();
@@ -17,6 +17,8 @@ const defaultState = {
   cart: [],
   search: '',
   isCartOpen: false,
+  total: 0,
+  staticStore: [],
 };
 export function Context({ children }) {
   const [state, dispatch] = useReducer(reducer, defaultState);
@@ -43,6 +45,7 @@ export function Context({ children }) {
       }),
     ];
     dispatch({ type: 'STORE', payload: response });
+    dispatch({ type: 'STATIC', payload: response });
   };
 
   const displayCart = () => {
@@ -80,6 +83,43 @@ export function Context({ children }) {
       dispatch({ type: 'ITEM_IN_CART' });
     }
   };
+  const removeItem = (id) => {
+    dispatch({ type: 'REMOVE_ITEM', payload: id });
+  };
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR_CART' });
+    fetchData();
+  };
+  const calculate = useCallback(() => {
+    let total = state.cart.reduce((acc, curr) => {
+      acc += curr.price;
+      return acc;
+    }, 0);
+    total = parseFloat(total.toFixed(2));
+    dispatch({ type: 'CALCULATE', payload: total });
+  }, [state.cart]);
+  const filterStore = (e) => {
+    const category = e.target.dataset.name;
+    if (category === 'all') {
+      dispatch({ type: 'STORE', payload: state.staticStore });
+      return;
+    } else {
+      const newStore = state.staticStore.filter(
+        (item) => item.category === category
+      );
+
+      dispatch({ type: 'STORE', payload: newStore });
+    }
+  };
+  const handleSearch = (e) => {
+    const input = e.target.value;
+    dispatch({ type: 'QUERY', payload: input });
+    const newStore = state.staticStore.filter((item) =>
+      item.name.includes(state.search)
+    );
+
+    dispatch({ type: 'STORE', payload: newStore });
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -87,10 +127,12 @@ export function Context({ children }) {
     const clearAlert = setTimeout(() => {
       dispatch({ type: 'CLEAR_ALERT' });
     }, 2000);
+    calculate();
+
     return () => {
       clearTimeout(clearAlert);
     };
-  }, [handleAddToStoreBtns]);
+  }, [state.alert, calculate]);
   return (
     <AppContext.Provider
       value={{
@@ -100,6 +142,10 @@ export function Context({ children }) {
         handleLinks,
         navBar,
         handleAddToStoreBtns,
+        removeItem,
+        clearCart,
+        filterStore,
+        handleSearch,
       }}
     >
       {children}
