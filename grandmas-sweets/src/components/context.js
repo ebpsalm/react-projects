@@ -11,6 +11,7 @@ const client = contentful.createClient({
   space: '4mtgiknsg42p',
   accessToken: 'fRv5pbhzfLcPayBARljEOM32jycjBHe3yTlbtRvKN7I',
 });
+
 const defaultState = {
   store: [],
   alert: { msg: '', state: false, type: '' },
@@ -23,6 +24,15 @@ const defaultState = {
 export function Context({ children }) {
   const [state, dispatch] = useReducer(reducer, defaultState);
   const navBar = useRef();
+  const getLocalStorage = () => {
+    let cartData = localStorage.getItem('grandmas-cart');
+    if (cartData) {
+      cartData = JSON.parse(localStorage.getItem('grandmas-cart'));
+    } else {
+      cartData = [];
+    }
+    dispatch({ type: 'CART', payload: { cart: cartData } });
+  };
   const fetchData = async () => {
     const { items } = await client.getEntries({
       content_type: 'grandmas',
@@ -46,8 +56,8 @@ export function Context({ children }) {
     ];
     dispatch({ type: 'STORE', payload: response });
     dispatch({ type: 'STATIC', payload: response });
+    getLocalStorage(response);
   };
-
   const displayCart = () => {
     dispatch({ type: 'SHOW_CART' });
   };
@@ -120,9 +130,17 @@ export function Context({ children }) {
 
     dispatch({ type: 'STORE', payload: newStore });
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   useEffect(() => {
     fetchData();
+    getLocalStorage();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('grandmas-cart', JSON.stringify(state.cart));
+  }, [state.cart]);
   useEffect(() => {
     const clearAlert = setTimeout(() => {
       dispatch({ type: 'CLEAR_ALERT' });
@@ -146,6 +164,7 @@ export function Context({ children }) {
         clearCart,
         filterStore,
         handleSearch,
+        handleSubmit,
       }}
     >
       {children}

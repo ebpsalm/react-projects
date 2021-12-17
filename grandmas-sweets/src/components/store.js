@@ -5,14 +5,14 @@ import Sweet from './sweet';
 import useGlobalContext from './context';
 
 const Store = () => {
-  const { store, search, handleSearch } = useGlobalContext();
+  const { store, search, handleSearch, handleSubmit } = useGlobalContext();
   return (
     <section className='store' id='store'>
       <h1>
         our <span className='special'>store</span>
       </h1>
       <Buttons />
-      <form className='form'>
+      <form className='form' onSubmit={handleSubmit}>
         <FaSearch className='search-icon' />
         <input
           type='text'

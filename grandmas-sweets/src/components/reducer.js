@@ -5,7 +5,9 @@ const reducer = (state, action) => {
   if (action.type === 'STATIC') {
     return { ...state, staticStore: action.payload };
   }
-
+if(action.type === 'CART'){
+  return {...state,cart: action.payload.cart}
+}
   if (action.type === 'SHOW_CART') {
     if (!state.isCartOpen) {
       return { ...state, isCartOpen: true };
