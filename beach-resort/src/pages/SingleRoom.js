@@ -2,10 +2,17 @@ import React from 'react';
 import Banner from '../components/banner';
 import useGlobalContext from '../context';
 import { useParams } from 'react-router-dom';
+import loader from '../images/gif/loading-arrow.gif';
 const SingleRoom = () => {
-  const { rooms } = useGlobalContext();
+  const { rooms, loading } = useGlobalContext();
   const { slug } = useParams();
-
+  if (loading) {
+    return (
+      <div className='loading'>
+        <img src={loader} alt='loader' />
+      </div>
+    );
+  }
   const singleRoom = rooms.find((room) => room.slug === slug);
 
   const {
@@ -30,14 +37,14 @@ const SingleRoom = () => {
           img: img[0],
         }}
       >
-        deluxe rooms starting at $299
+        {`${name} room at $${price}`}
       </Banner>
       <section className='single-room grid-container'>
         {img.map((image, index) => {
           if (index !== 0) {
             return (
               <div key={index}>
-                <img src={image} alt={name} className='img' />;
+                <img src={image} alt={name} className='img' />
               </div>
             );
           }

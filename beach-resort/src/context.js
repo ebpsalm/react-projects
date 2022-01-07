@@ -9,7 +9,14 @@ const client = contentful.createClient({
 const defaultState = {
   rooms: [],
   filteredRooms: [],
-  loading: false,
+  loading: true,
+  minMax: '',
+  type: 'all',
+  guests: 1,
+  price: '',
+  size: '',
+  breakfast: false,
+  pets: false,
 };
 const AppContext = React.createContext();
 export const Context = ({ children }) => {
@@ -62,14 +69,91 @@ export const Context = ({ children }) => {
         type,
       };
     });
-    dispatch({ type: 'ROOMS', payload: { response } });
+    const minMax = {
+      roomPrice: {
+        min: Math.min(...response.map((room) => room.price)),
+        max: Math.max(...response.map((room) => room.price)),
+      },
+      roomSize: {
+        min: Math.min(...response.map((room) => room.size)),
+        max: Math.max(...response.map((room) => room.size)),
+      },
+      roomCapacity: {
+        min: Math.min(...response.map((room) => room.capacity)),
+        max: Math.max(...response.map((room) => room.capacity)),
+      },
+    };
+    dispatch({ type: 'ROOMS', payload: { response, minMax } });
+  };
+  const reset = () => {
+    window.location.reload();
+  };
+  const handleFilter = (name, e) => {
+    let propValue = e.target.value;
+    let newFilteredRooms;
+    if (name === 'guests' || name === 'price' || name === 'size') {
+      propValue = parseInt(e.target.value);
+      if (name === 'guests') {
+        newFilteredRooms = state.filteredRooms.filter(
+          (room) => room.capacity === propValue
+        );
+      }
+      if (name === 'price') {
+        newFilteredRooms = state.filteredRooms.filter(
+          (room) => room.price <= propValue
+        );
+      }
+      if (
+        name === 'size' &&
+        propValue < state.minMax.roomSize.max &&
+        propValue > state.minMax.roomSize.min
+      ) {
+        newFilteredRooms = state.filteredRooms.filter(
+          (room) => room.size <= propValue
+        );
+      } else {
+        newFilteredRooms = state.rooms;
+      }
+    }
+    if (name === 'breakfast' || name === 'pets') {
+      if (propValue === 'true') {
+        propValue = true;
+      } else {
+        propValue = false;
+      }
+      propValue = !propValue;
+      if (name === 'breakfast') {
+        newFilteredRooms = state.filteredRooms.filter((room) => {
+          return room.breakfast === propValue;
+        });
+      }
+      if (name === 'pets') {
+        newFilteredRooms = state.filteredRooms.filter((room) => {
+          return room.pets === propValue;
+        });
+      }
+    }
+    if (name === 'type') {
+      newFilteredRooms = state.filteredRooms.filter(
+        (room) => room.type === propValue
+      );
+      if (propValue === 'all') {
+        newFilteredRooms = state.rooms;
+      }
+    }
+    dispatch({
+      type: 'FILTER',
+      payload: { propValue, name, newFilteredRooms },
+    });
   };
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, handleFilter, reset }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 const useGlobalContext = () => useContext(AppContext);
